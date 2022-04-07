@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Title</title>
+  <meta charset="utf-8"/>
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.21.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.2"></script>
+
+  <style>
+  h1{
+    text-align: center;
+  }
+    .container:hover input ~ .checkmark {
+    background-color: #ccc;
+    }
+    .container {
+  display: flex;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 15px;
+}
+  div{
+    display:flex;
+    float:right;
+  }
+  </style>
+  <style media="screen">
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+<!-- checkbox, but it is not interactive-->
+  <h1>Covid-19 (Daily Reported case,Hospitalization rate, ICU rate) visualization in Ottawa From 2020-2021</h1>
+  <label class="container">Lockdown
+    <input type="checkbox" checked="checked">
+    <span class="checkmark"></span>
+  </label>
+
+  <label class="container">Mandate
+    <input type="checkbox">
+    <span class="checkmark"></span>
+  </label>
+
+  <label class="container">Vaccines
+    <input type="checkbox">
+    <span class="checkmark"></span>
+  </label>
+
+  <div id="vis"></div>
+  <script src="line.js"></script>
+
+<h><mark>***Warning: This is not interactive</mark></h>
+
+<h2>  written sections </h2>
+<p> &nbsp; &nbsp; &nbsp; &nbsp;
+
+  The motivation of our webpage is help Ottawa citizen understand the trend of COVID-19 from 2020-2021; how does lockdown,mandate and vaccines effects trend of COVID-19; the hospitalization rate and icu proportion.
+  <br>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  We used COVID-19 Daily cases, Cases in Hospital and Cases in ICU from January, 2020 to December, 2021. Our data are from Open Ottawa, all the data are quantity data.
+  <br>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  We determined the time range are 2020-2021, using 3 line chart instead of bar chart to show how daily number effects numbers of hospital and icu; determined the independent variable is date instead of month.
+  <br>
+</p>
+<p1>
+  Design Process:<br>
+  We chose the sketch 1 first, but due to the amount of domain, we decided changed to line chart which is sketch 3.
+  <br>
+</p1>
+<img src="sketch1.jpg"
+  alt="Sketch 1"
+  width="200"
+  height="340">
+</img>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<img src="sketch3.jpg"
+  alt="Sketch 3"
+  width="200"
+  height="340">
+</img>
+</body>
+</html>
