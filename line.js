@@ -1,8 +1,15 @@
 var vlSpec = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
 
     //load the data
     "data": {"url":"COVID-data.csv"},
+
+    //create three checkbox
+    "params": [
+      {"name": "Lockdown", "bind": {"input": "checkbox"}},
+      {"name": "Mandate", "bind": {"input": "checkbox"}},
+      {"name": "Vaccines", "bind": {"input": "checkbox"}}
+    ],
 
     "vconcat": [
       {
@@ -13,11 +20,71 @@ var vlSpec = {
         //encode x
         "encoding": {
           //connecting chart 2 to chart 1
-          "x": {"field":"Date", "type":"temporal", "scale":{"domain":{"param":"brush"}}}
+          "x": {"field":"Date", "type":"temporal", "title":"Date", "scale":{"domain":{"param":"brush"}}}
         },
 
         //create a layer to create three line graph using different y
         "layer": [
+
+          //Create vaccine line
+          {
+            "data": {"values": [{"Date": "2020-12-20"}]},
+            "mark": {"type":"rule", "size": {"value": 10}},
+            "encoding": {
+              "color":{
+                "condition":{"param" : "Vaccines", "value":"red"},
+                "value":"transparent"
+              }
+            }
+          },
+
+          //create Mandate color block
+          {
+            "mark": {"type":"rect"},
+            "data": {
+              "values": [{"start": "2020-12-28" , "end": "2022-3-22"}]
+            },
+            "encoding": {
+              "x": {"field": "start"},
+              "x2": {"field": "end"},
+              "color": {
+                "condition":{"param" : "Mandate", "value":"#f9efc0"},
+                "value":"transparent"
+              }
+            }
+          },
+
+          //create Lockdown color block (1)
+          {
+            "mark": {"type":"rect"},
+            "data": {
+              "values": [{"start": "2020-12-28" , "end": "2021-1-25"}]
+            },
+            "encoding": {
+              "x": {"field": "start"},
+              "x2": {"field": "end"},
+              "color": {
+                "condition":{"param" : "Lockdown", "value":"#fad0de"},
+                "value":"transparent"
+              }
+            }
+          },
+          //create Lockdown color block (2)
+          {
+            "mark": {"type":"rect"},
+            "data": {
+              "values": [{"start": "2021-4-3" , "end": "2021-5-1"}]
+            },
+            "encoding": {
+              "x": {"field": "start"},
+              "x2": {"field": "end"},
+              "color": {
+                "condition":{"param" : "Lockdown", "value":"#fad0de"},
+                "value":"transparent"
+              }
+            }
+          },
+
           //Daily Cases by Reported Date
           {
             "mark": {"type":"line"},
@@ -40,17 +107,7 @@ var vlSpec = {
               "y": {"field":"Cases Currently in ICU", "type":"quantitative"},
               "color": {"value":"green"}
             }
-          },
-
-          //the vertical target date line
-        {
-          "data": {
-               "values": [
-                 {"Date": "2020-12-20"}
-               ]
-             },
-          "mark": { "type": "rule", "color": "red", "size": {"value": 6}}
-      }
+          }
         ]
       },
       {
@@ -83,5 +140,9 @@ var vlSpec = {
 };
 
 //reference: https://vega.github.io/vega-lite/examples/interactive_bin_extent.html
+//reference: https://vega.github.io/vega-lite/docs/parameter.html
+//reference: https://vega.github.io/vega-lite/examples/layer_falkensee.html
+
 
 vegaEmbed('#vis', vlSpec);
+
